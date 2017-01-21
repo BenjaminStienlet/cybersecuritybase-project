@@ -11,6 +11,7 @@ TODO
 **Issue**: [Session fixation](https://www.owasp.org/index.php/Session_fixation)
 
 **Steps to reproduce**:
+
 1. s1
 2. s2
 3. s3
@@ -24,6 +25,7 @@ TODO
 **Issue**: [Cross-Site Scripting](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
 
 **Steps to reproduce**:
+
 1. s1
 2. s2
 3. s3
@@ -37,6 +39,7 @@ TODO
 **Issue**: [Cross-Site Request Forgery](https://www.owasp.org/index.php/Cross-Site_Request_Forgery)
 
 **Steps to reproduce**:
+
 1. s1
 2. s2
 3. s3
@@ -50,6 +53,7 @@ TODO
 **Issue**: [Blind SQL injection](https://www.owasp.org/index.php/Blind_SQL_Injection)
 
 **Steps to reproduce**:
+
 1. s1
 2. s2
 3. s3
@@ -63,6 +67,7 @@ TODO
 **Issue**: Weak cryptographic algorithm and unsalted hashes used
 
 **Steps to reproduce**:
+
 1. s1
 2. s2
 3. s3
