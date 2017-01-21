@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+
+        <h1>Login to see your information on the event</h1>
+
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
+        <p th:if="${loggedOut}" class="info">User logged out</p>
+        <p th:if="${signedUp}" class="info">User registered, please log on</p>
+        <form action="#" th:action="@{/login}" method="POST">
+            <p><label for="username">Name</label>: <input type="text" name="username" id="username"/></p>
+            <p><label for="password">Password</label>: <input type="password" name="password" id="password"/></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
+        <a th:href="@{/form}">Sign up for the event</a>
+
+        <p></p>
+    </body>
+</html>

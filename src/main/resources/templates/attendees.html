@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Attendees</title>
+    </head>
+    <body>
+
+        <a th:href="@{/profile}" th:text="'User: '+ ${user.name}">User profile</a> (<a th:href="@{/logout}">logout</a>)
+
+        <h1>Attendees to the event</h1>
+
+        <form action="#" th:action="@{/attendees}" method="POST">
+            <p><label for="searchString">Search attendee</label>:
+                <input type="text" name="searchString" id="searchString" value="Name"/>
+                <input type="submit" value="Submit" />
+            </p>
+        </form>
+        <p th:if="${searchError}" class="error">Something went wrong when searching</p>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Count</th>
+                <th th:if="${user.isAdmin}">Delete</th>
+            </tr>
+
+            <tr th:each="item : ${list}">
+                <td th:text="${item.name}">Name</td>
+                <td th:text="${item.address}">Address</td>
+                <td th:text="${item.nrOfAttendees}">Count</td>
+                <td th:if="${user.isAdmin}"><form th:action="@{/attendees/{name}(name=${item.name})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
+            </tr>
+        </table>
+
+        <p></p>
+    </body>
+</html>

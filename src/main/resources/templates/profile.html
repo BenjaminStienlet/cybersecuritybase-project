@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>User profile</title>
+    </head>
+    <body>
+
+        <a th:href="@{/profile}" th:text="'User: ' + ${user.name}">User profile</a> (<a th:href="@{/logout}">logout</a>)
+
+        <h1>User profile: <div th:text="${user.name}"></div></h1>
+
+        <form action="#" th:action="@{/profile}" method="POST">
+            <p><label>Name</label>: <span th:text="${user.name}"></span></p>
+            <p><label>Credit card</label>: <span th:text="${user.creditCard}"></span></p>
+            <p><label for="count">Number of attendees</label>: <input type="number" name="count" id="count" value="${user.nrOfAttendees}"/></p>
+            <p><label>Address</label>: <span th:text="${user.address}"></span></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
+        <p></p>
+    </body>
+</html>

