@@ -54,7 +54,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 
 **Steps to reproduce**:
 
-1. Create an HTML with the following content:
+1. Create an HTML file with the following content:
 
     ```HTML
     <html>
@@ -149,7 +149,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 ## Flaw 5 - Sensitive Data Exposure
 **OWASP description**: [A6-Sensitive Data Exposure](https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure)
 
-**Issue**: Weak cryptographic algorithm and unsalted hashes used
+**Issue**: Weak cryptographic algorithm and unsalted hashes
 
 **Steps to reproduce**:
 
