@@ -43,7 +43,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 **Steps to reproduce**:
 
 1. Create an HTML with the following content:
-    ```
+    ```HTML
     <html>
         <body onload="document.forms[0].submit()">
             <form action="http://localhost:8080/profile" method="POST">
