@@ -12,7 +12,7 @@
         <form action="#" th:action="@{/profile}" method="POST">
             <p><label>Name</label>: <span th:text="${user.name}"></span></p>
             <p><label>Credit card</label>: <span th:text="${user.creditCard}"></span></p>
-            <p><label for="count">Number of attendees</label>: <input type="number" name="count" id="count" value="${user.nrOfAttendees}"/></p>
+            <p><label for="count">Number of attendees</label>: <input type="number" name="count" id="count" th:value="${user.nrOfAttendees}"/></p>
             <p><label>Address</label>: <span th:text="${user.address}"></span></p>
             <p><input type="submit" value="Submit" /></p>
         </form>

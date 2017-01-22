@@ -32,7 +32,7 @@ public class ProfileController {
         account.setNrOfAttendees(count);
         accountRepository.save(account);
         model.addAttribute("user", account);
-        return "profile";
+        return "redirect:/attendees";
     }
 
 }

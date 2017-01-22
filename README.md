@@ -42,13 +42,28 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 
 **Steps to reproduce**:
 
-1. s1
-2. s2
-3. s3
+1. Create an HTML with the following content:
+    ```
+    <html>
+        <body onload="document.forms[0].submit()">
+            <form action="http://localhost:8080/profile" method="POST">
+                <input type="hidden" name="count" id="count" value="1000" />
+                <input type="submit" value="Submit" />    
+            </form>
+        </body>
+    </html>
+    ```
+2. Host this page somewhere.
+3. Login to the application with a user.
+4. Go to the url where the CSRF attack page is hosted (e.g. https://benjaminstienlet.github.com/cybersecuritybase-project/csrf_attack.html).
+5. The number of attendees for the user that was logged in is now changed to 1000:
+
+    ![Result of CSRF](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/CSRF_result.png)
 
 **Remediation**:
 
-* r1
+* Verify the same origin using standard headers.
+* Use a secure random CSRF token for state changing operations.
 
 
 ## Flaw 3 - Missing Function Level Access Control
