@@ -5,10 +5,12 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 ## Setup info
 * Web page: [http://localhost:8080/](http://localhost:8080/)
 * User accounts:
+
     | Username | Password |
     | -------- | -------- |
     | admin    | adminpw  |
     | user     | userpw   |
+    
 * Tools needed:
     1. netcat
     2. [BBQSQL](https://github.com/Neohapsis/bbqsql)
