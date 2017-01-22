@@ -2,6 +2,14 @@
 
 This is my solution for the first project of the [Cyber Security Base course](https://cybersecuritybase.github.io/). In this project our task is to create a web application that has at least five different flaws from the [OWASP top ten list](https://www.owasp.org/index.php/Top_10_2013-Top_10).
 
+## Content
+
+1. [Flaw 1 - Cross-Site Scripting](https://github.com/BenjaminStienlet/cybersecuritybase-project#flaw-1---cross-site-scripting)
+2. [Flaw 2 - Cross-Site Request Forgery](https://github.com/BenjaminStienlet/cybersecuritybase-project#flaw-2---cross-site-request-forgery)
+3. [Flaw 3 - Missing Function Level Access Control](https://github.com/BenjaminStienlet/cybersecuritybase-project#flaw-3---missing-function-level-access-control)
+4. [Flaw 4 - Injection](https://github.com/BenjaminStienlet/cybersecuritybase-project#flaw-4---injection)
+5. [Flaw 5 - Sensitive Data Exposure](https://github.com/BenjaminStienlet/cybersecuritybase-project#flaw-5---sensitive-data-exposure)
+
 ## Setup info
 * Web page: [http://localhost:8080/](http://localhost:8080/)
 * User accounts:
@@ -10,7 +18,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
     | -------- | -------- |
     | admin    | adminpw  |
     | user     | userpw   |
-    
+
 * Tools needed:
     1. netcat
     2. [BBQSQL](https://github.com/Neohapsis/bbqsql)
@@ -106,7 +114,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 
 1. Login to the web application.
 2. Go to the attendees page.
-3. Insert `nothing' OR '1'='1` in the search field. After applying this filter, all items are still shown. This indicates that we can exploit this using SQL injection. We will have to use a blind SQL injection as the result of the query is not printed. I chose for a content-based blind SQL injection, but a time-based injection should also work.
+3. Insert `nothing' OR '1'='1` in the search field. After applying this filter, all items are still shown. This indicates that we can exploit this filter using SQL injection. We will have to use a blind SQL injection as the result of the query is not printed. I chose for a content-based blind SQL injection, but a time-based injection should also work.
 4. We can read the data from the database by doing a binary search on the ASCII value of each character in the database and iterating over all the characters. The base query for this method is:
     ```
     1' OR (ASCII(SUBSTRING(SELECT CONCAT(NAME,':',PASSWORD) FROM ACCOUNT LIMIT 1 OFFSET 1, 1, 1)) > 63) --
