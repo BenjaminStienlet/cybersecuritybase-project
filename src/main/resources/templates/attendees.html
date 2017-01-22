@@ -26,8 +26,8 @@
             </tr>
 
             <tr th:each="item : ${list}">
-                <td th:text="${item.name}">Name</td>
-                <td th:text="${item.address}">Address</td>
+                <td th:utext="${item.name}">Name</td>
+                <td th:utext="${item.address}">Address</td>
                 <td th:text="${item.nrOfAttendees}">Count</td>
                 <td th:if="${user.isAdmin}"><form th:action="@{/attendees/{name}(name=${item.name})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
             </tr>
