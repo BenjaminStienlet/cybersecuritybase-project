@@ -3,13 +3,15 @@
 This is my solution for the first project of the [Cyber Security Base course](https://cybersecuritybase.github.io/). In this project our task is to create a web application that has at least five different flaws from the [OWASP top ten list](https://www.owasp.org/index.php/Top_10_2013-Top_10).
 
 ## Setup info
-* Web page: http://localhost:8080/
+* Web page: [http://localhost:8080/](http://localhost:8080/)
 * User accounts:
-    1. u1
-    2. u2
+    | Username | Password |
+    | -------- | -------- |
+    | admin    | adminpw  |
+    | user     | userpw   |
 * Tools needed:
-    1. t1
-    2. t2
+    1. netcat
+    2. [BBQSQL](https://github.com/Neohapsis/bbqsql)
 
 
 ## Flaw 1 - Cross-Site Scripting
@@ -43,6 +45,7 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 **Steps to reproduce**:
 
 1. Create an HTML with the following content:
+
     ```HTML
     <html>
         <body onload="document.forms[0].submit()">
@@ -141,13 +144,10 @@ This is my solution for the first project of the [Cyber Security Base course](ht
 **Steps to reproduce**:
 
 1. In the previous flaw, we found the user names and hashes of the passwords. Using an [online tool](https://www.onlinehashcrack.com/hash-identification.php) to identify the hash type, we can see that these hashes are probably MD5 hashes.
-2. We can try to crack the hashes using the tool 'john the ripper' with the command `john -format=raw-MD5 bbqsql_output.csv`:
-
-    ![Result of john](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/SQLI_result.png)
-
-    We could also check an [online reverse lookup](http://md5.gromweb.com/) for the MD5 hashes:
+2. We can check an [online reverse lookup](http://md5.gromweb.com/) for the MD5 hashes:
 
     ![Result of reverse lookup](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/MD5_reverse_lookup.png)
+3. This way we found the passwords of the user accounts in the application.
 
 **Remediation**:
 
