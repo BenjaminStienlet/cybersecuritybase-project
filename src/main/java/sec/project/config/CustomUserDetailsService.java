@@ -27,11 +27,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @PostConstruct
     public void init() {
 
-        Account account = new Account("admin", passwordEncoder.encode("adminpassword"),  "341616273645565",
+        Account account = new Account("admin", passwordEncoder.encode("adminpw"),  "341616273645565",
                 1, "450 Arrowhead Street, Akron, OH 44312", true);
         accountRepository.save(account);
 
-        account = new Account("user", passwordEncoder.encode("userpassword"), "375253554288425",
+        account = new Account("user", passwordEncoder.encode("userpw"), "375253554288425",
                 1, "89 Green Dr., Orland Park, IL 60462", false);
         accountRepository.save(account);
 
