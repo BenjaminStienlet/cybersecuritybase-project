@@ -1,25 +1,18 @@
 # Cyber Security Base  - Project I
 
-This is my solution for the first project of the [Cyber Security Base course](https://cybersecuritybase.github.io/). In this project our task is to create a web application that has at least five different flaws from the OWASP top ten list.
+This is my solution for the first project of the [Cyber Security Base course](https://cybersecuritybase.github.io/). In this project our task is to create a web application that has at least five different flaws from the [OWASP top ten list](https://www.owasp.org/index.php/Top_10_2013-Top_10).
 
 ## Setup info
-TODO
-
-## Flaw 1 - Broken Authentication and Session Management
-**OWASP description**: [A1-Injection](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)
-
-**Issue**: [Session fixation](https://www.owasp.org/index.php/Session_fixation)
-
-**Steps to reproduce**:
-
-1. s1
-2. s2
-3. s3
-
-**Remediation**:
+* Web page: http://localhost:8080/
+* User accounts:
+    1. u1
+    2. u2
+* Tools needed:
+    1. t1
+    2. t2
 
 
-## Flaw 2 - Cross-Site Scripting
+## Flaw 1 - Cross-Site Scripting
 **OWASP description**: [A3-Cross-Site Scripting](https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS))
 
 **Issue**: [Cross-Site Scripting](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
@@ -42,7 +35,7 @@ TODO
 * Make sure that the HTTPOnly cookie flag is set for the session ID.
 
 
-## Flaw 3 - Cross-Site Request Forgery
+## Flaw 2 - Cross-Site Request Forgery
 **OWASP description**: [A8-Cross-Site Request Forgery](https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF))
 
 **Issue**: [Cross-Site Request Forgery](https://www.owasp.org/index.php/Cross-Site_Request_Forgery)
@@ -54,6 +47,34 @@ TODO
 3. s3
 
 **Remediation**:
+
+* r1
+
+
+## Flaw 3 - Missing Function Level Access Control
+**OWASP description**: [A7-Missing Function Level Access Control](https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control)
+
+**Issue**: Regular users can access a privileged function
+
+**Steps to reproduce**:
+
+1. Login as a normal user and note down your session id
+2. Connect to the web server using netcat with the following command: `nc 192.168.0.185 8080`
+3. Insert the following HTTP request:
+
+    ```
+    DELETE /attendees/John%20Smith HTTP/1.1
+    Host: 192.168.0.185:8080
+    Cookie: JSESSIONID=6DE506E932836598A6BFCA5FC6427A61
+    ```
+
+4. Press enter to submit the request. The user John Smith now is successfully removed by a regular user who should not have these rights.
+
+    ![Result of netcat](https://raw.githubusercontent.com/BenjaminStienlet/cybersecuritybase-project/master/images/privileged_function_command.png)
+
+**Remediation**:
+
+* Don't use "presentation layer access control" but also check in the function itself that the authenticated user has the necessary privileges to perform this function.
 
 
 ## Flaw 4 - Injection
@@ -71,7 +92,7 @@ TODO
     1' OR (ASCII(SUBSTRING(SELECT CONCAT(NAME,':',PASSWORD) FROM ACCOUNT LIMIT 1 OFFSET 1, 1, 1)) > 63) --
     ```
 
-    If the list of attendees is shown, the query evaluated to true and the ASCII value first character in the Name column for the first row in the Account table is larger than 63. If no attendees are shown, then the query evaluated to false.
+    If the list of attendees is shown, the query evaluated to true and the ASCII value of the first character in the Name column for the first row in the Account table is larger than 63. If no attendees are shown, then the query evaluated to false.
 5. We can now execute this base query using the tool [BBQSQL](https://github.com/Neohapsis/bbqsql) with the following configuration file:
     ```
     [Request Config]
